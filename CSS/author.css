@@ -1,11 +1,15 @@
 tei{
-    background-color : grey;
+    background-color : whitesmoke;
+}
+
+not{
+    display:none
 }
 teiHeader{
     display:none
 }
 div{
-    background-color:whitesmoke;
+    background-color:white;
     padding : 3px;
     margin: 3px;
     display:block
@@ -36,7 +40,7 @@ pb {
     display:none
 }
 lb {
-    display:none
+    display:contents
 }
 milestone {
     display:none
