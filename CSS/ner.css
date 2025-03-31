@@ -1,0 +1,230 @@
+@namespace oxy url('http://www.oxygenxml.com/extensions/author');
+
+:root {
+      --color-orange-light: #f7d8a8;
+      --color-orange-dark: #917e62;
+      --color-purple-light: #e8a8f7;
+      --color-purlple-dark: #886291;
+      --color-grey-light: #e1e1e1;
+      --color-grey-dark: #919191;
+      --color-blue-light: #a8f7ef;
+      --color-blue-dark: #62918d;
+      --color-green-light: #abf7a8;
+      --color-green-dark: #649162;
+      --color-yellow-light: #f4f7a8;
+      --color-yellow-dark: #8f9162;
+      --color-red-light: #f7a8a8;
+      --color-red-dark: #916262; 
+    }
+
+name, persName, placeName, orgName, geogName, rs{
+padding:3px;
+
+}
+
+rs[cert="low"], geogName[cert="low"], name[cert="low"], persName[cert="low"], placeName[cert="low"], orgName[cert="low"]{
+      border-bottom: 2px solid  var(--color-red-light);
+}
+rs[cert="high"], geogName[cert="high"],name[cert="high"], persName[cert="high"], placeName[cert="high"], orgName[cert="high"]{
+      border-bottom: 2px solid  var(--color-green-light);
+}
+rs[cert="medium"], geogName[cert="medium"],name[cert="medium"], persName[cert="medium"], placeName,[cert="medium"] orgName[cert="medium"]{
+      border-bottom: 2px solid  var(--color-yellow-light);
+
+}
+rs[cert="unknown"], geogName[cert="unknown"],name[cert="unknown"], persName,[cert="unknown"] placeName[cert="unknown"], orgName[cert="unknown"]{
+      border-bottom: 2px solid  var(--color-grey-light);;
+
+}
+rs:not([cert]), geogName:not([cert]), name:not([cert]), persName:not([cert]), placeName:not([cert]), orgName:not([cert]){
+      border-bottom: 2px solid  var(--color-grey-light);
+
+}
+
+@media XMLmind-XML-Editor {
+      
+
+      persName:before{
+            content: 
+                    image("https://gitlab.huma-num.fr/jnuguet/oxauthor-views/-/raw/main/ner/image/persName.png",12px,12px)
+
+        }
+      placeName:before{
+            content: image("https://gitlab.huma-num.fr/jnuguet/oxauthor-views/-/raw/main/ner/image/placeName.png",12px,12px)
+        }
+      orgName:before{
+            content: image("https://gitlab.huma-num.fr/jnuguet/oxauthor-views/-/raw/main/ner/image/orgName.png",12px,12px)
+        }
+      name:before{
+            content: image("https://github.com/KuonDiogenous/Stage-SC-Biblindex/blob/main/Media/Livre.png?raw=true", 12px, 12px)
+        }
+      geogName:before{
+            content: image("https://github.com/KuonDiogenous/Stage-SC-Biblindex/blob/main/Media/geogName.png?raw=true", 20px, 20px)
+        }
+      rs:before{
+            content: "?"
+        }
+ /* Ajouter rs et geog ici */
+ 
+}
+@media oxygen{
+      name, persName, placeName, orgName, geogName, rs{
+            -oxy-display-tags: none;
+      }
+      name:focus, persName:focus, placeName:focus, orgName:focus, geogName:focus, rs:focus{
+            display:block;
+            }
+
+      
+
+
+name:focus:before(1) , persName:focus:before(1) , placeName:focus:before(1) , orgName:focus:before(1), geogName:focus:before(1), rs:focus:before(1) {
+  background-color: whitesmoke;
+  
+  color: var(--color-grey-dark);
+  content:
+  "Cert:"
+  oxy_popup(           
+      edit, "@cert",
+      values, "low,medium,high,unknown"
+      color,var(--color-grey-dark),
+      selectionMode, single
+      )
+  "   "
+  "Resp: "
+  oxy_popup(           
+      edit, "@resp",
+      values, oxy_xpath("string-join(for $id in ancestor::*:TEI//*:respStmt/@xml:id return concat('#', $id), ',')")
+      color, var(--color-grey-dark),
+      selectionMode, single
+      )
+  
+}
+
+name:focus:before(99) , persName:focus:before(99) , placeName:focus:before(99) , orgName:focus:before(99), geogName:focus:before(99), rs:focus:before(99){
+      background-color: whitesmoke;
+  
+      color: var(--color-grey-dark);
+  content: 
+    "Changer :"
+    oxy_buttonGroup(
+    label, 'Type', 
+    transparent,'true',
+    fontInherit,'true',
+    actions, 
+      oxy_action_list(
+          oxy_action(
+                name, 'Personne', 
+                operation, 'RenameElementOperation', 
+                arg-elementName, 'persName'
+          )
+          oxy_action(
+                name, 'Lieux', 
+                operation, 'RenameElementOperation', 
+                arg-elementName, 'placeName'
+          )
+         oxy_action(
+                name, 'Organition', 
+                operation, 'RenameElementOperation', 
+                arg-elementName, 'orgName'
+          )
+          oxy_action(
+                name, 'Livre', 
+                operation, 'RenameElementOperation', 
+                arg-elementName, 'name'
+          )
+          oxy_action(
+                name, 'Lieux géographiques', 
+                operation, 'RenameElementOperation', 
+                arg-elementName, 'geogName'
+          )
+          oxy_action(
+                name, 'Autres', 
+                operation, 'RenameElementOperation', 
+                arg-elementName, 'rs'
+          )
+          )
+          )
+      oxy_button(action, oxy_action(
+            name, '[ Insert comment ]', 
+            operation, 'InsertFragmentOperation', 
+            arg-fragment, '<note type="work" xmlns="http://www.tei-c.org/ns/1.0">${caret}</note>',
+            arg-insertLocation, '.',
+            arg-insertPosition, 'Inside as first child'
+  ),    transparent,'true',
+  fontInherit,'true')     
+  }
+
+  name:focus>note[type="work"], persName:focus>note[type="work"], placeName:focus>note[type="work"], orgName:focus>note[type="work"], geogName:focus>note[type="work"], rs:focus>note[type="work"]{
+      display: block;
+}
+
+persName:before(100){
+      width:12px;
+      height:12px;
+      content:oxy_url("https://gitlab.huma-num.fr/jnuguet/oxauthor-views/-/raw/main/ner/image/persName.png")
+  }
+placeName:before(100){
+      width:12px;
+      height:12px;
+      content:oxy_url("https://gitlab.huma-num.fr/jnuguet/oxauthor-views/-/raw/main/ner/image/placeName.png")
+  }
+orgName:before(100){
+      width:12px;
+      height:12px;
+      content:oxy_url("https://gitlab.huma-num.fr/jnuguet/oxauthor-views/-/raw/main/ner/image/orgName.png")
+  }
+name:before(100){
+      width:12px;
+      height:12px;
+      content: oxy_url("https://github.com/KuonDiogenous/Stage-SC-Biblindex/blob/main/Media/Livre.png?raw=true")
+  }
+  geogName:before(100){
+      width:12px;
+      height:12px;
+      content:oxy_url("https://github.com/KuonDiogenous/Stage-SC-Biblindex/blob/main/Media/geogName.png?raw=true")
+  }
+  rs:before(100){
+      width:20px;
+      height:20px;
+      content: "?"
+  }
+ name:focus:before(98) , persName:focus:before(98) , placeName:focus:before(98) , orgName:focus:before(98), geogName:focus:before(98) , rs:focus:before(98) {
+    display : block;
+    content :
+        "ID wikidata (ex: Q1) :"
+        oxy_textfield(
+            edit, "@ref",
+            columns, 20)
+        oxy_htmlContent(content,oxy_concat("<a href='https://www.wikidata.org/wiki/",attr(ref),"'>Voir</a>"))
+        
+        /* oxy_concat("Result: ",
+           oxy_xpath("doc(concat('http://www.wikidata.org/w/api.php?action=wbgetentities&ids=',@ref,'&format=xml'))//*:description[@language='en']/@value/string()"))*/
+ }
+}
+
+
+
+
+
+note[type="work"]:focus{
+      display: block;
+}
+note[type="work"]::before{
+ content: "note de travail : "
+ oxy_button(action, oxy_action(
+      name, '[ Delete ]', 
+      operation, 'DeleteElementOperation', 
+      arg-elementLocation, '.'
+
+),    transparent,'true',
+fontInherit,'true')     
+
+}
+
+note[type="work"]{
+      display: none;
+      padding: 3px;
+      background-color: #f7a8a8; 
+      color: #916262;
+}
