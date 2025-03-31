@@ -1,0 +1,43 @@
+tei{
+    background-color : grey;
+}
+teiHeader{
+    display:none
+}
+div{
+    background-color:whitesmoke;
+    padding : 3px;
+    margin: 3px;
+    display:block
+}
+div::before {
+    color:silver;
+    content:   attr(type) " "attr(n) "." ;
+    white-space: pre;
+}
+p{
+    background-color:whitesmoke;
+    padding : 3px;
+    margin: 3px;
+    display:block
+}
+p::before {
+    color:silver;
+    content:  attr(n) "." ;
+    white-space: pre;
+}
+head {
+     -oxy-display-tags: none;
+}
+c{
+    -oxy-display-tags: none;
+}
+pb {
+    display:none
+}
+lb {
+    display:none
+}
+milestone {
+    display:none
+}
