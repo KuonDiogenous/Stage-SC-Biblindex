@@ -64,6 +64,46 @@ series {
     text-decoration: underline;
 }
 
+msDesc {
+    content: "Manuscript Description :";
+    border:black solid 2px;
+    display: block;
+    padding: 3px;
+    margin: 3px;
+    text-decoration: underline;
+}
+
+msDesc collection{
+    background-color: white;
+    content: "Nom de la collection :" "\A";
+    display: block;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
+    
+}
+
+msDesc settlement{
+    background-color: white;
+    content: "Localisation :" "\A";
+    display: block;
+        text-decoration: none;
+    padding: 5px;
+    padding: 5px;
+    border: solid black 1px;
+    
+}
+
+msDesc idno{
+    background-color: white;
+    content: "ID :" "\A";
+    display: block;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
+    
+}
+
 bibl {
     content: "Bibliographie :";
     border:black solid 2px;
@@ -103,19 +143,23 @@ revisionDesc{
     text-decoration: underline;
 }
 
-/* La liste qui suit est à réduite */
+/* La liste qui suit est à réduire */
 title{
     background-color: white;
     content: "Title :" "\A";
     display: block;
-    text-decoration: none;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
 }
 
 author{
     background-color: white;
     content: "Nom de l'auteur en " attr(xml\:lang) " :" "\A";
     display: block;
-    text-decoration: none;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
 }
 
 edition{
@@ -128,11 +172,15 @@ edition{
     text-decoration: underline;
 }
 
+
+
 resp{
     background-color: white;
     content: "Resp :" "\A";
     display: block;
-    text-decoration: none;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
     padding: 5px 5px 20px  5px;
     
 }
@@ -141,55 +189,70 @@ respStmt name{
     background-color: white;
     content: "Name :" "\A";
     display: block;
-    text-decoration: none;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
     
 }
 
 editionStmt:after{
     content: "Cliquer ici puis appuyer sur entrer pour ajouter un nouveau <respStmt>";
 }
-
+/* Possibilité de rajouter un button */
 
 publicationStmt p{
     background-color: white;
     content: "\A";
     display: block;
-    text-decoration: none;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
 }
 
 respStmt persName{
     background-color: white;
     content: "PersName :" "\A";
     display: block;
-    text-decoration: none;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
 }
 
 pubPlace{
     background-color: white;
     content: "Publishement place :" "\A";
     display: block;
-    text-decoration: none;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
+    border: solid black 1px;
 }
 
 publisher{
     background-color: white;
     content: "Publisher :" "\A";
     display: block;
-    text-decoration: none;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
 }
 
 date{
     background-color: white;
     content: "Date :" "\A";
     display: block;
-    text-decoration: none;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
 }
 
 biblScope[unit="volume"]{
     background-color: white;
     content: "Volume :" "\A";
     display: block;
-    text-decoration: none;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
 }
 
 
@@ -198,14 +261,18 @@ change{
     background-color: white;
     content: "Change :" "\A";
     display: block;
-    text-decoration: none;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
 }
 
 projectDesc{
     background-color: white;
     content: "ProjectDesc :" "\A";
     display: block;
-    text-decoration: none;
+        text-decoration: none;
+    padding: 5px;
+    border: solid black 1px;
 }
 
 teiHeader editionStmt respStmt {
@@ -263,6 +330,16 @@ div div p{
     flex-direction: column; 
 }
 
+/* div p{
+    margin: 20px;
+    font-size: 14px;
+    text-align : justify;
+    display:flex;
+    flex-direction: column; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+*/
+
 div p::before {
     color: silver;
     content: attr(n) ".";
@@ -283,9 +360,16 @@ lb[break='no']{
     content:  "-" ;
 }
 
+
 pb {
-    display: none
+    content: "|";
+} 
+
+/* Conserver ? */
+pb[corresp*="#pg_GT"]{
+content:"\A""\A" "Page n°" attr(n) "\A""\A";
 }
+
 milestone {
     display: none
 }
